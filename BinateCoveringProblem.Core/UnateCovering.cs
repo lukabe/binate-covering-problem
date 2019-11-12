@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace BinateCoveringProblem
+namespace BinateCoveringProblem.Core
 {
     public class UnateCovering
     {
@@ -21,7 +21,7 @@ namespace BinateCoveringProblem
             {
                 AlgorithmSteps();
             }
-            while (inputSet.Count() > 0);
+            while (inputSet.Any());
         }
 
         private void AlgorithmSteps()
@@ -78,7 +78,6 @@ namespace BinateCoveringProblem
                     {
                         inputSet.Remove(rowB.Key);
                         return;
-
                     }
                 }
             }
@@ -136,7 +135,7 @@ namespace BinateCoveringProblem
                 solution.Append(string.Format(" x{0}", index));
             }
             solution.Append(" }");
-            
+
             return solution.ToString();
         }
     }

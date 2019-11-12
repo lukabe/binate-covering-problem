@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BinateCoveringProblem.Core;
+using System.Collections.Generic;
 
 namespace BinateCoveringProblem.Console
 {
@@ -54,7 +55,7 @@ namespace BinateCoveringProblem.Console
                 [6] = new List<int>() { 1, 3, 4 }
             };
 
-            var unateCovering = new UnateCovering(inputSet4);
+            var unateCovering = new UnateCovering(inputSet1);
             unateCovering.Start();
 
             var solution = unateCovering.PrintSolution();
