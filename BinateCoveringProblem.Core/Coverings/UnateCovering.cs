@@ -1,30 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using BinateCoveringProblem.Core.Extensions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BinateCoveringProblem.Core
+namespace BinateCoveringProblem.Core.Coverings
 {
-    public class UnateCovering
+    public class UnateCovering : CoveringBase
     {
         private readonly List<int> currentSolution = new List<int>();
-
-        private Dictionary<int, List<int>> inputSet;
 
         public UnateCovering(Dictionary<int, List<int>> inputSet)
         {
             this.inputSet = inputSet;
         }
 
-        public void Start()
-        {
-            do
-            {
-                AlgorithmSteps();
-            }
-            while (inputSet.Any());
-        }
-
-        private void AlgorithmSteps()
+        public override void Steps()
         {
             if (IsEssentialColumn())
             {
@@ -85,7 +75,7 @@ namespace BinateCoveringProblem.Core
 
         private void RemoveDominatedColumn()
         {
-            var revInputSet = ReverseSet(inputSet);
+            var revInputSet = inputSet.Reverse();
             foreach (var rowA in revInputSet)
             {
                 foreach (var rowB in revInputSet)
@@ -93,7 +83,7 @@ namespace BinateCoveringProblem.Core
                     if (rowA.Key != rowB.Key && !rowA.Value.Except(rowB.Value).Any())
                     {
                         revInputSet.Remove(rowA.Key);
-                        inputSet = ReverseSet(revInputSet);
+                        inputSet = revInputSet.Reverse();
                         return;
                     }
                 }
@@ -103,28 +93,6 @@ namespace BinateCoveringProblem.Core
         private void UpdateSolution(int essentialColumn)
         {
             currentSolution.Add(essentialColumn);
-        }
-
-        private Dictionary<int, List<int>> ReverseSet(Dictionary<int, List<int>> set)
-        {
-            var revSet = new Dictionary<int, List<int>>();
-
-            foreach (var row in set)
-            {
-                foreach (var column in row.Value)
-                {
-                    if (revSet.ContainsKey(column))
-                    {
-                        revSet.FirstOrDefault(c => c.Key == column).Value.Add(row.Key);
-                        continue;
-                    }
-                    revSet.Add(column, new List<int>() { row.Key });
-                }
-            }
-
-            // sorting ??
-
-            return revSet;
         }
 
         public string PrintSolution()
