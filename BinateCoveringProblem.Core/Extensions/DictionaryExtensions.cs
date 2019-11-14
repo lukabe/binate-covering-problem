@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BinateCoveringProblem.Core.Extensions
@@ -9,7 +10,7 @@ namespace BinateCoveringProblem.Core.Extensions
         {
             if (source is null)
             {
-                throw new System.ArgumentNullException(nameof(source));
+                throw new ArgumentNullException(nameof(source));
             }
 
             var revSet = new Dictionary<int, List<int>>();
@@ -27,9 +28,17 @@ namespace BinateCoveringProblem.Core.Extensions
                 }
             }
 
-            revSet.OrderBy(x => x.Key);
+            return revSet.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+        }
 
-            return revSet;
+        public static bool Compare(this Dictionary<int, List<int>> source, Dictionary<int, List<int>> input)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            return source.Count.Equals(input.Count) && !source.Except(input).Any();
         }
     }
 }

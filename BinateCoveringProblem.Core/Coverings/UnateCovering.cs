@@ -7,37 +7,49 @@ namespace BinateCoveringProblem.Core.Coverings
 {
     public class UnateCovering : CoveringBase
     {
-        private readonly List<int> currentSolution = new List<int>();
-
-        public UnateCovering(Dictionary<int, List<int>> inputSet)
-        {
-            this.inputSet = inputSet;
-        }
+        public UnateCovering(Dictionary<int, List<int>> inputSet, List<int> currentSolution = null) : base(inputSet, currentSolution) { }
 
         public override void Steps()
         {
-            if (IsEssentialColumn())
+            Reduce();
+        }
+
+        /// <summary>
+        /// Reduce algorithm is sufficient for the set with non-cyclic core
+        /// </summary>
+        private void Reduce()
+        {
+            Dictionary<int, List<int>> tempSet;
+            do
             {
-                OnEssentialColumn();
+                tempSet = inputSet;
+                EssentialColumn();
+                DominatedRow();
+                DominatedColumn();
             }
-            RemoveDominatedRow();
-            RemoveDominatedColumn();
+            while (inputSet.Any() && !inputSet.Equals(tempSet));
         }
 
-        private bool IsEssentialColumn()
+        private bool IsEssentialColumn => inputSet.Any(s => s.Value.Count.Equals(1));
+
+        private void EssentialColumn()
         {
-            return inputSet.Any(s => s.Value.Count.Equals(1));
-        }
+            while (true)
+            {
+                if (IsEssentialColumn)
+                {
+                    var essentialColumn = inputSet.FirstOrDefault(s => s.Value.Count.Equals(1)).Value.FirstOrDefault();
 
-        private void OnEssentialColumn()
-        {
-            var essentialColumn = inputSet.FirstOrDefault(s => s.Value.Count.Equals(1)).Value.FirstOrDefault();
+                    // remove all rows associated with the essential column
+                    RemoveAssociatedRows(essentialColumn);
 
-            // remove all rows associated with the essential column
-            RemoveAssociatedRows(essentialColumn);
+                    // add an essential column index to the solution
+                    UpdateSolution(essentialColumn);
 
-            // add an essential column index to the solution
-            UpdateSolution(essentialColumn);
+                    continue;
+                }
+                break;
+            }
         }
 
         private void RemoveAssociatedRows(int essentialColumn)
@@ -58,35 +70,45 @@ namespace BinateCoveringProblem.Core.Coverings
             }
         }
 
-        private void RemoveDominatedRow()
+        private void DominatedRow()
         {
-            foreach (var rowA in inputSet)
+        Start: 
+            while (true)
             {
-                foreach (var rowB in inputSet)
+                foreach (var rowA in inputSet)
                 {
-                    if (rowA.Key != rowB.Key && !rowA.Value.Except(rowB.Value).Any())
+                    foreach (var rowB in inputSet)
                     {
-                        inputSet.Remove(rowB.Key);
-                        return;
+                        if (rowA.Key != rowB.Key && !rowA.Value.Except(rowB.Value).Any())
+                        {
+                            inputSet.Remove(rowB.Key);
+                            goto Start;
+                        }
                     }
                 }
+                break;
             }
         }
 
-        private void RemoveDominatedColumn()
+        private void DominatedColumn()
         {
-            var revInputSet = inputSet.Reverse();
-            foreach (var rowA in revInputSet)
+        Start: 
+            while (true)
             {
-                foreach (var rowB in revInputSet)
+                var revInputSet = inputSet.Reverse();
+                foreach (var rowA in revInputSet)
                 {
-                    if (rowA.Key != rowB.Key && !rowA.Value.Except(rowB.Value).Any())
+                    foreach (var rowB in revInputSet)
                     {
-                        revInputSet.Remove(rowA.Key);
-                        inputSet = revInputSet.Reverse();
-                        return;
+                        if (rowA.Key != rowB.Key && !rowA.Value.Except(rowB.Value).Any())
+                        {
+                            revInputSet.Remove(rowA.Key);
+                            inputSet = revInputSet.Reverse();
+                            goto Start;
+                        }
                     }
                 }
+                break;
             }
         }
 
@@ -105,6 +127,33 @@ namespace BinateCoveringProblem.Core.Coverings
             solution.Append(" }");
 
             return solution.ToString();
+        }
+
+        /// <summary>
+        /// Returns column with the greatest weight
+        /// </summary>
+        /// <returns></returns>
+        public int CalculateWeights()
+        {
+            var weights = new Dictionary<int, double>();
+            var columns = inputSet.Reverse().Keys.ToList();
+
+            foreach (var column in columns)
+            {
+                double weight = 0;
+
+                foreach (var row in inputSet)
+                {
+                    if (row.Value.Contains(column))
+                    {
+                        weight += (double) 1 / row.Value.Count();
+                    }
+                }
+
+                weights.Add(column, weight);
+            }
+
+            return weights.Where(x => x.Value == weights.Values.Max()).FirstOrDefault().Key;
         }
     }
 }
