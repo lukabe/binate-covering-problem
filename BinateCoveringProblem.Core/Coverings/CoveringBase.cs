@@ -6,17 +6,17 @@ namespace BinateCoveringProblem.Core.Coverings
 {
     public abstract class CoveringBase : IAlgorithm
     {
-        protected Dictionary<int, List<int>> inputSet;
+        protected Dictionary<int, List<int>> source;
         protected List<int> currentSolution;
         protected List<int> boundarySolution;
 
         protected int UpperBound => boundarySolution.Count;
 
-        public CoveringBase(Dictionary<int, List<int>> inputSet, List<int> currentSolution = null)
+        public CoveringBase(Dictionary<int, List<int>> source, List<int> currentSolution = null)
         {
-            this.inputSet = inputSet;
+            this.source = source;
             this.currentSolution = currentSolution ?? new List<int>();
-            this.boundarySolution = inputSet.Reverse().Keys.ToList();
+            this.boundarySolution = source.Reverse().Keys.ToList();
         }
 
         public void Run()
