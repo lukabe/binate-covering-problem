@@ -41,17 +41,5 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
             }
             return minimumLowerBound;
         }
-
-        public string PrintSolution()
-        {
-            var solution = new StringBuilder("{");
-            foreach (var index in Result)
-            {
-                solution.Append(string.Format(" x{0}", index));
-            }
-            solution.Append(" }");
-
-            return solution.ToString();
-        }
     }
 }

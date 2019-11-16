@@ -1,4 +1,5 @@
 ﻿using BinateCoveringProblem.Core.Algorithms.Covering;
+using Serilog;
 using System.Collections.Generic;
 
 namespace BinateCoveringProblem.Console
@@ -7,6 +8,8 @@ namespace BinateCoveringProblem.Console
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
+
             // non-cyclic
             var source1 = new Dictionary<int, List<int>>()
             {
@@ -69,11 +72,16 @@ namespace BinateCoveringProblem.Console
                 [9] = new List<int>() { 1, 8 }
             };
 
-            System.Console.WriteLine("Solution: " + new UnateCovering(source1).PrintSolution());
-            System.Console.WriteLine("Solution: " + new UnateCovering(source2).PrintSolution());
-            System.Console.WriteLine("Solution: " + new UnateCovering(source3).PrintSolution());
-            System.Console.WriteLine("Solution: " + new UnateCovering(source4).PrintSolution());
-            System.Console.WriteLine("Solution: " + new UnateCovering(source5).PrintSolution());
+            new UnateCovering(source1);
+            System.Console.WriteLine();
+            new UnateCovering(source2);
+            System.Console.WriteLine();
+            new UnateCovering(source3);
+            System.Console.WriteLine();
+            new UnateCovering(source4);
+            System.Console.WriteLine();
+            new UnateCovering(source5);
+            System.Console.WriteLine();
             System.Console.ReadLine();
         }
     }

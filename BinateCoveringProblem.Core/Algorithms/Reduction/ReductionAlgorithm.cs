@@ -1,4 +1,5 @@
 ﻿using BinateCoveringProblem.Core.Extensions;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,6 +52,8 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     // add an essential column index to the solution
                     UpdateSolution(essentialColumn);
 
+                    Log.Information("Essential Column: " + source.Print());
+                    Log.Information("Current Solution: " + currentSolution.Print());
                     continue;
                 }
                 break;
@@ -67,6 +70,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     foreach (var rowB in source.Where(r => r.Key != rowA.Key && !rowA.Value.Except(r.Value).Any()))
                     {
                         source.Remove(rowB.Key);
+                        Log.Information("Dominated Row: " + source.Print());
                         goto Start;
                     }
                 }
@@ -86,6 +90,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     {
                         revSource.Remove(rowB.Key);
                         source = revSource.Reverse();
+                        Log.Information("Dominated Column: " + source.Print());
                         goto Start;
                     }
                 }

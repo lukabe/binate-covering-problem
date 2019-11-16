@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace BinateCoveringProblem.Core.Extensions
 {
@@ -92,6 +93,28 @@ namespace BinateCoveringProblem.Core.Extensions
             }
 
             return source.ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        public static string Print(this Dictionary<int, List<int>> source)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException("Source is null");
+            }
+
+            var output = new StringBuilder("F = {");
+            foreach (var row in source)
+            {
+                output.Append(string.Format(" {0}:[", row.Key));
+                foreach (var column in row.Value)
+                {
+                    output.Append(string.Format("{0},", column));
+                }
+                output.Replace(",", "]", output.Length - 1, 1);
+            }
+            output.Append(" }");
+
+            return output.ToString();
         }
     }
 }
