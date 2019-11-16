@@ -1,4 +1,4 @@
-﻿namespace BinateCoveringProblem.Core
+﻿namespace BinateCoveringProblem.Core.Algorithms
 {
     public interface IAlgorithm<TResult>
     {

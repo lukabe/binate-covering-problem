@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BinateCoveringProblem.Core
+namespace BinateCoveringProblem.Core.Algorithms.Reduction
 {
     /// <summary>
     /// The reduction algorithm is sufficient to find the minimum coverage of the set with non-cyclic core

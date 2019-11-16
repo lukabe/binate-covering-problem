@@ -1,8 +1,9 @@
 ﻿using BinateCoveringProblem.Core.Extensions;
+using BinateCoveringProblem.Core.Maths;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BinateCoveringProblem.Core.Coverings
+namespace BinateCoveringProblem.Core.Algorithms.Covering
 {
     public abstract class CoveringBase : IAlgorithm<List<int>>
     {

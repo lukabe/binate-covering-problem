@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BinateCoveringProblem.Core
+namespace BinateCoveringProblem.Core.Algorithms.Reduction
 {
     public class ReductionResult
     {

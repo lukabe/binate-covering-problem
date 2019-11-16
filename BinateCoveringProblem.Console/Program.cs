@@ -1,4 +1,4 @@
-﻿using BinateCoveringProblem.Core.Coverings;
+﻿using BinateCoveringProblem.Core.Algorithms.Covering;
 using System.Collections.Generic;
 
 namespace BinateCoveringProblem.Console

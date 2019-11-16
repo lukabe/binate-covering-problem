@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using BinateCoveringProblem.Core.Algorithms.Reduction;
+using BinateCoveringProblem.Core.Maths;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BinateCoveringProblem.Core.Coverings
+namespace BinateCoveringProblem.Core.Algorithms.Covering
 {
     public class UnateCovering : CoveringBase
     {

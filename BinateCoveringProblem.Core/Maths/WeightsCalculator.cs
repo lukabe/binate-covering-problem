@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BinateCoveringProblem.Core
+namespace BinateCoveringProblem.Core.Maths
 {
     public class WeightsCalculator
     {
