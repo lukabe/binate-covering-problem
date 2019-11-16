@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BinateCoveringProblem.Core.Coverings
 {
-    public abstract class CoveringBase : IAlgorithm
+    public abstract class CoveringBase : IAlgorithm<List<int>>
     {
         protected Dictionary<int, List<int>> source;
         protected List<int> currentSolution;
@@ -12,18 +12,32 @@ namespace BinateCoveringProblem.Core.Coverings
 
         protected int UpperBound => boundarySolution.Count;
 
+        public List<int> Result { get; set; }
+
         public CoveringBase(Dictionary<int, List<int>> source, List<int> currentSolution = null)
         {
             this.source = source;
             this.currentSolution = currentSolution ?? new List<int>();
             this.boundarySolution = source.Reverse().Keys.ToList();
-        }
 
-        public void Run()
-        {
             Steps();
         }
 
         public abstract void Steps();
+
+        protected int LowerBound()
+        {
+            // it's assumed that at least two
+            var minimumLowerBound = 2;
+            
+            var maxCliqueLength = new MaximumClique(source).Length();
+            var lowerBound = currentSolution.Count + maxCliqueLength;
+
+            if (lowerBound > minimumLowerBound)
+            {
+                return lowerBound;
+            }
+            return minimumLowerBound;
+        }
     }
 }

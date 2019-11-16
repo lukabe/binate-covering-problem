@@ -7,8 +7,8 @@ namespace BinateCoveringProblem.Console
     {
         public static void Main(string[] args)
         {
-            // non cyclic
-            var inputSet1 = new Dictionary<int, List<int>>()
+            // non-cyclic
+            var source1 = new Dictionary<int, List<int>>()
             {
                 // { 1, 0, 1, 0, 0, 1 }
                 // { 0, 1, 0, 1, 0, 0 }
@@ -24,7 +24,7 @@ namespace BinateCoveringProblem.Console
             };
 
             // cyclic
-            var inputSet2 = new Dictionary<int, List<int>>()
+            var source2 = new Dictionary<int, List<int>>()
             {
                 [1] = new List<int>() { 1, 3 },
                 [2] = new List<int>() { 1, 2, 4 },
@@ -32,8 +32,8 @@ namespace BinateCoveringProblem.Console
                 [4] = new List<int>() { 5 }
             };
 
-            // non cyclic
-            var inputSet3 = new Dictionary<int, List<int>>()
+            // non-cyclic
+            var source3 = new Dictionary<int, List<int>>()
             {
                 [1] = new List<int>() { 1, 2 },
                 [2] = new List<int>() { 2, 3 },
@@ -45,7 +45,7 @@ namespace BinateCoveringProblem.Console
             };
 
             // cyclic
-            var inputSet4 = new Dictionary<int, List<int>>()
+            var source4 = new Dictionary<int, List<int>>()
             {
                 [1] = new List<int>() { 1, 2, 4 },
                 [2] = new List<int>() { 1, 3, 5 },
@@ -55,8 +55,21 @@ namespace BinateCoveringProblem.Console
                 [6] = new List<int>() { 1, 3, 4 }
             };
 
-            var unateCovering = new UnateCovering(inputSet3);
-            unateCovering.Run();
+            // cyclic
+            var source5 = new Dictionary<int, List<int>>()
+            {
+                [1] = new List<int>() { 7, 8 },
+                [2] = new List<int>() { 2, 6 },
+                [3] = new List<int>() { 3, 4 },
+                [4] = new List<int>() { 4, 5 },
+                [5] = new List<int>() { 1, 4 },
+                [6] = new List<int>() { 1, 7 },
+                [7] = new List<int>() { 3, 6 },
+                [8] = new List<int>() { 3, 5 },
+                [9] = new List<int>() { 1, 8 }
+            };
+
+            var unateCovering = new UnateCovering(source5);
 
             var solution = unateCovering.PrintSolution();
             System.Console.WriteLine("Solution: " + solution);

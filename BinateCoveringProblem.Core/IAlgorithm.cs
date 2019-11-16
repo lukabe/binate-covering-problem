@@ -1,9 +1,9 @@
 ﻿namespace BinateCoveringProblem.Core
 {
-    public interface IAlgorithm
+    public interface IAlgorithm<TResult>
     {
-        void Run();
-
         void Steps();
+
+        TResult Result { get; }
     }
 }

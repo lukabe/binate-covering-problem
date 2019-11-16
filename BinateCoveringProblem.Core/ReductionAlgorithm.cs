@@ -7,37 +7,32 @@ namespace BinateCoveringProblem.Core
     /// <summary>
     /// The reduction algorithm is sufficient to find the minimum coverage of the set with non-cyclic core
     /// </summary>
-    public class ReductionAlgorithm : IAlgorithm
+    public class ReductionAlgorithm : IAlgorithm<ReductionResult>
     {
         private Dictionary<int, List<int>> source;
         private List<int> currentSolution;
 
-        public Dictionary<int, List<int>> ReducedSource => source;
-
-        public List<int> UpdatedSolution => currentSolution;
+        public ReductionResult Result => new ReductionResult(source, currentSolution);
 
         public ReductionAlgorithm(Dictionary<int, List<int>> source, List<int> currentSolution)
         {
             this.source = source;
             this.currentSolution = currentSolution;
+
+            Steps();
         }
 
-        public void Run()
+        public void Steps()
         {
             Dictionary<int, List<int>> tempSet;
             do
             {
                 tempSet = source;
-                Steps();
+                EssentialColumn();
+                DominatedRow();
+                DominatedColumn();
             }
             while (source.Any() && !source.Equals(tempSet));
-        }
-
-        public void Steps()
-        {
-            EssentialColumn();
-            DominatedRow();
-            DominatedColumn();
         }
 
         private bool IsEssentialColumn => source.Any(s => s.Value.Count.Equals(1));
@@ -87,13 +82,10 @@ namespace BinateCoveringProblem.Core
             {
                 foreach (var rowA in source)
                 {
-                    foreach (var rowB in source)
+                    foreach (var rowB in source.Where(r => r.Key != rowA.Key && !rowA.Value.Except(r.Value).Any()))
                     {
-                        if (rowA.Key != rowB.Key && !rowA.Value.Except(rowB.Value).Any())
-                        {
-                            source.Remove(rowB.Key);
-                            goto Start;
-                        }
+                        source.Remove(rowB.Key);
+                        goto Start;
                     }
                 }
                 break;
@@ -108,14 +100,11 @@ namespace BinateCoveringProblem.Core
                 var revSource = source.Reverse();
                 foreach (var rowA in revSource)
                 {
-                    foreach (var rowB in revSource)
+                    foreach (var rowB in revSource.Where(r => r.Key != rowA.Key && !rowA.Value.Except(r.Value).Any()))
                     {
-                        if (rowA.Key != rowB.Key && !rowA.Value.Except(rowB.Value).Any())
-                        {
-                            revSource.Remove(rowA.Key);
-                            source = revSource.Reverse();
-                            goto Start;
-                        }
+                        revSource.Remove(rowA.Key);
+                        source = revSource.Reverse();
+                        goto Start;
                     }
                 }
                 break;
