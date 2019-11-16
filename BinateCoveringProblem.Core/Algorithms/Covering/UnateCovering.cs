@@ -1,17 +1,20 @@
 ﻿using BinateCoveringProblem.Core.Algorithms.Reduction;
+using BinateCoveringProblem.Core.Extensions;
 using BinateCoveringProblem.Core.Maths;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BinateCoveringProblem.Core.Algorithms.Covering
 {
     public class UnateCovering : CoveringBase
     {
-        public UnateCovering(Dictionary<int, List<int>> source, List<int> currentSolution = null) : base(source, currentSolution) { }
+        public UnateCovering(Dictionary<int, List<int>> source, List<int> currentSolution = null, List<int> boundarySolution = null) 
+            : base(source, currentSolution, boundarySolution) { }
 
         public override void Steps()
         {
+        reduce:
+            // source set has non-cyclic core
             Reduce();
 
             if (!source.Any())
@@ -29,11 +32,43 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
                 return;
             }
 
+        fork:
             // source set has cyclic core
+            // choose column against whick will occur the fork
+            var chosen = new WeightsCalculator(source).ChooseColumn();
 
-            var choosen = new WeightsCalculator(source).ChooseColumn();
+        option1: // chosen column is added to the solution: chosen = 1
+            var source1 = source.ToDictionary();
+            var solution1 = currentSolution.ToList();
 
-            // TODO: rozwidlenie
+            source1.RemoveAssociatedRows(chosen);
+            solution1.Add(chosen);
+
+            var result1 = new UnateCovering(source1, solution1, boundarySolution).Result;
+
+            if (result1.Count < UpperBound)
+            {
+                boundarySolution = result1;
+                if (UpperBound == lowerBound)
+                {
+                    Result = boundarySolution;
+                    return;
+                }
+            }
+
+        option0: // chosen column is removed from the source set: chosen = 0
+            var source0 = source.ToDictionary();
+            source0.RemoveColumn(chosen);
+
+            var result0 = new UnateCovering(source0, currentSolution, boundarySolution).Result;
+
+            if (result0.Count < UpperBound)
+            {
+                boundarySolution = result0;
+            }
+
+            Result = boundarySolution;
+            return;
         }
 
         private void Reduce()
@@ -41,18 +76,6 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
             var reduction = new ReductionAlgorithm(source, currentSolution);
             source = reduction.Result.ReducedSource;
             currentSolution = reduction.Result.UpdatedSolution;
-        }
-
-        public string PrintSolution()
-        {
-            var solution = new StringBuilder("{");
-            foreach (var index in currentSolution)
-            {
-                solution.Append(string.Format(" x{0}", index));
-            }
-            solution.Append(" }");
-
-            return solution.ToString();
         }
     }
 }

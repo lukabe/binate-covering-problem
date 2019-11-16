@@ -2,6 +2,7 @@
 using BinateCoveringProblem.Core.Maths;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace BinateCoveringProblem.Core.Algorithms.Covering
 {
@@ -15,11 +16,11 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
         public List<int> Result { get; set; }
 
-        public CoveringBase(Dictionary<int, List<int>> source, List<int> currentSolution = null)
+        public CoveringBase(Dictionary<int, List<int>> source, List<int> currentSolution = null, List<int> boundarySolution = null)
         {
             this.source = source;
             this.currentSolution = currentSolution ?? new List<int>();
-            this.boundarySolution = source.Reverse().Keys.ToList();
+            this.boundarySolution = boundarySolution ?? source.Reverse().Keys.ToList();
 
             Steps();
         }
@@ -39,6 +40,18 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
                 return lowerBound;
             }
             return minimumLowerBound;
+        }
+
+        public string PrintSolution()
+        {
+            var solution = new StringBuilder("{");
+            foreach (var index in Result)
+            {
+                solution.Append(string.Format(" x{0}", index));
+            }
+            solution.Append(" }");
+
+            return solution.ToString();
         }
     }
 }

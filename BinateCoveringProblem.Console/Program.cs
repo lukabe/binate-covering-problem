@@ -69,10 +69,11 @@ namespace BinateCoveringProblem.Console
                 [9] = new List<int>() { 1, 8 }
             };
 
-            var unateCovering = new UnateCovering(source5);
-
-            var solution = unateCovering.PrintSolution();
-            System.Console.WriteLine("Solution: " + solution);
+            System.Console.WriteLine("Solution: " + new UnateCovering(source1).PrintSolution());
+            System.Console.WriteLine("Solution: " + new UnateCovering(source2).PrintSolution());
+            System.Console.WriteLine("Solution: " + new UnateCovering(source3).PrintSolution());
+            System.Console.WriteLine("Solution: " + new UnateCovering(source4).PrintSolution());
+            System.Console.WriteLine("Solution: " + new UnateCovering(source5).PrintSolution());
             System.Console.ReadLine();
         }
     }

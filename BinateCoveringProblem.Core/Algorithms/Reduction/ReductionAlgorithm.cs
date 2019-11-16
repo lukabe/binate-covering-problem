@@ -27,12 +27,12 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
             Dictionary<int, List<int>> tempSet;
             do
             {
-                tempSet = source;
+                tempSet = source.ToDictionary();
                 EssentialColumn();
                 DominatedRow();
                 DominatedColumn();
             }
-            while (source.Any() && !source.Equals(tempSet));
+            while (source.Any() && !source.Compare(tempSet));
         }
 
         private bool IsEssentialColumn => source.Any(s => s.Value.Count.Equals(1));
@@ -46,7 +46,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     var essentialColumn = source.FirstOrDefault(s => s.Value.Count.Equals(1)).Value.FirstOrDefault();
 
                     // remove all rows associated with the essential column
-                    RemoveAssociatedRows(essentialColumn);
+                    source.RemoveAssociatedRows(essentialColumn);
 
                     // add an essential column index to the solution
                     UpdateSolution(essentialColumn);
@@ -54,24 +54,6 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     continue;
                 }
                 break;
-            }
-        }
-
-        private void RemoveAssociatedRows(int essentialColumn)
-        {
-            var associatedRows = new List<int>();
-
-            foreach (var row in source)
-            {
-                if (row.Value.Contains(essentialColumn))
-                {
-                    associatedRows.Add(row.Key);
-                }
-            }
-
-            foreach (var row in associatedRows)
-            {
-                source.Remove(row);
             }
         }
 
@@ -100,9 +82,9 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                 var revSource = source.Reverse();
                 foreach (var rowA in revSource)
                 {
-                    foreach (var rowB in revSource.Where(r => r.Key != rowA.Key && !rowA.Value.Except(r.Value).Any()))
+                    foreach (var rowB in revSource.Where(r => r.Key != rowA.Key && !r.Value.Except(rowA.Value).Any()))
                     {
-                        revSource.Remove(rowA.Key);
+                        revSource.Remove(rowB.Key);
                         source = revSource.Reverse();
                         goto Start;
                     }
