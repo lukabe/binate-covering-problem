@@ -14,7 +14,9 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
         public override void Steps()
         {
-        reduce:
+            /// <summary>
+            /// Reduction:
+            /// </summary>
             // source set has non-cyclic core
             Log.Information("Reduction");
             Reduce();
@@ -34,13 +36,16 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
                 return;
             }
 
-        fork:
+            /// <summary>
+            /// Fork: choose column against whick will occur the fork
+            /// </summary>
             // source set has cyclic core
-            // choose column against whick will occur the fork
             var chosen = new WeightsCalculator(source).ChooseColumn();
             Log.Information("Is occur the fork against column " + chosen);
-
-        option1: // chosen column is added to the solution: chosen = 1
+            
+            /// <summary>
+            /// Option 1: chosen column is added to the solution; chosen = 1
+            /// </summary>
             Log.Information(string.Format("Option 1: column {0} is added to the solution", chosen));
 
             var source1 = source.ToDictionary();
@@ -63,7 +68,9 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
                 }
             }
 
-        option0: // chosen column is removed from the source set: chosen = 0
+            /// <summary>
+            /// Option 0: chosen column is removed from the source set; chosen = 0
+            /// </summary>
             Log.Information(string.Format("Option 0: column {0} is removed from the source set", chosen));
 
             var source0 = source.ToDictionary();

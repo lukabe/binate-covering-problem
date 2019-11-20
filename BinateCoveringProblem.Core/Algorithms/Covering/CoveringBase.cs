@@ -2,19 +2,14 @@
 using BinateCoveringProblem.Core.Maths;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BinateCoveringProblem.Core.Algorithms.Covering
 {
-    public abstract class CoveringBase : IAlgorithm<List<int>>
+    public abstract class CoveringBase : ICoveringAlgorithm
     {
         protected Dictionary<int, List<int>> source;
         protected List<int> currentSolution;
         protected List<int> boundarySolution;
-
-        protected int UpperBound => boundarySolution.Count;
-
-        public List<int> Result { get; set; }
 
         public CoveringBase(Dictionary<int, List<int>> source, List<int> currentSolution = null, List<int> boundarySolution = null)
         {
@@ -26,6 +21,10 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
         }
 
         public abstract void Steps();
+
+        public List<int> Result { get; set; }
+
+        protected int UpperBound => boundarySolution.Count;
 
         protected int LowerBound()
         {

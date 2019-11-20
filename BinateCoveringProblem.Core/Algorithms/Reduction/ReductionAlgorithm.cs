@@ -8,7 +8,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
     /// <summary>
     /// The reduction algorithm is sufficient to find the minimum coverage of the set with non-cyclic core
     /// </summary>
-    public class ReductionAlgorithm : IAlgorithm<ReductionResult>
+    public class ReductionAlgorithm : IReductionAlgorithm
     {
         private Dictionary<int, List<int>> source;
         private List<int> currentSolution;

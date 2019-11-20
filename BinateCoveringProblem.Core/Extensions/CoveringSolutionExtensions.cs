@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BinateCoveringProblem.Core.Extensions
 {
-    public static class ListExtensions
+    public static class CoveringSolutionExtensions
     {
         public static string Print(this List<int> solution)
         {
