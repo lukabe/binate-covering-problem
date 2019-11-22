@@ -90,7 +90,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
         private void Reduce()
         {
-            var reduction = new ReductionAlgorithm(source, currentSolution);
+            var reduction = new UnateReduction(source, currentSolution);
             source = reduction.Result.ReducedSource;
             currentSolution = reduction.Result.UpdatedSolution;
         }

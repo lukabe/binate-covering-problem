@@ -5,25 +5,11 @@ using System.Linq;
 
 namespace BinateCoveringProblem.Core.Algorithms.Reduction
 {
-    /// <summary>
-    /// The reduction algorithm is sufficient to find the minimum coverage of the set with non-cyclic core
-    /// </summary>
-    public class ReductionAlgorithm : IReductionAlgorithm
+    public class UnateReduction : ReductionBase
     {
-        private Dictionary<int, List<int>> source;
-        private List<int> currentSolution;
+        public UnateReduction(Dictionary<int, List<int>> source, List<int> currentSolution) : base(source, currentSolution) { }
 
-        public ReductionResult Result => new ReductionResult(source, currentSolution);
-
-        public ReductionAlgorithm(Dictionary<int, List<int>> source, List<int> currentSolution)
-        {
-            this.source = source;
-            this.currentSolution = currentSolution;
-
-            Steps();
-        }
-
-        public void Steps()
+        public override void Steps()
         {
             Dictionary<int, List<int>> tempSet;
             do
@@ -36,9 +22,9 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
             while (source.Any() && !source.Compare(tempSet));
         }
 
-        private bool IsEssentialColumn => source.Any(s => s.Value.Count.Equals(1));
+        protected override bool IsEssentialColumn => source.Any(s => s.Value.Count.Equals(1));
 
-        private void EssentialColumn()
+        protected override void EssentialColumn()
         {
             while (true)
             {
@@ -60,25 +46,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
             }
         }
 
-        private void DominatedRow()
-        {
-        Start:
-            while (true)
-            {
-                foreach (var rowA in source)
-                {
-                    foreach (var rowB in source.Where(r => r.Key != rowA.Key && !rowA.Value.Except(r.Value).Any()))
-                    {
-                        source.Remove(rowB.Key);
-                        Log.Information("Dominated Row: " + source.Print());
-                        goto Start;
-                    }
-                }
-                break;
-            }
-        }
-
-        private void DominatedColumn()
+        protected override void DominatedColumn()
         {
         Start:
             while (true)
@@ -96,11 +64,6 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                 }
                 break;
             }
-        }
-
-        private void UpdateSolution(int essentialColumn)
-        {
-            currentSolution.Add(essentialColumn);
         }
     }
 }

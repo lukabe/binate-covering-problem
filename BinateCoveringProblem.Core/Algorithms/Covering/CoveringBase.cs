@@ -11,7 +11,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
         protected List<int> currentSolution;
         protected List<int> boundarySolution;
 
-        public CoveringBase(Dictionary<int, List<int>> source, List<int> currentSolution = null, List<int> boundarySolution = null)
+        protected CoveringBase(Dictionary<int, List<int>> source, List<int> currentSolution = null, List<int> boundarySolution = null)
         {
             this.source = source;
             this.currentSolution = currentSolution ?? new List<int>();
