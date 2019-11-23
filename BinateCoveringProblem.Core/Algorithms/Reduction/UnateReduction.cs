@@ -22,15 +22,13 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
             while (source.Any() && !source.Compare(tempSet));
         }
 
-        protected override bool IsEssentialColumn => source.Any(s => s.Value.Count.Equals(1));
-
         protected override void EssentialColumn()
         {
             while (true)
             {
-                if (IsEssentialColumn)
+                if (source.IsEssentialColumn())
                 {
-                    var essentialColumn = source.FirstOrDefault(s => s.Value.Count.Equals(1)).Value.FirstOrDefault();
+                    var essentialColumn = source.GetEssentialColumn();
 
                     // remove all rows associated with the essential column
                     source.RemoveAssociatedRows(essentialColumn);

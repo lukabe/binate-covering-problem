@@ -25,8 +25,6 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
 
         public abstract void Steps();
 
-        protected abstract bool IsEssentialColumn { get; }
-
         protected abstract void EssentialColumn();
 
         protected void DominatedRow()
