@@ -42,7 +42,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     UpdateSolution(essentialColumn);
 
                     Log.Information($"Essential Column: {{{essentialColumn}}} {source.Print()}");
-                    Log.Information("Current Solution: " + currentSolution.Print());
+                    Log.Information($"Current Solution: {currentSolution.Print()}");
                     continue;
                 }
                 break;

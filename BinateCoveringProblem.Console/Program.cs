@@ -73,24 +73,24 @@ namespace BinateCoveringProblem.Console
                 [9] = new List<int>() { 1, 8 }
             };
 
-            Log.Information("Source: " + source1.Print());
-            Log.Information("Solution: " + new UnateCovering(source1).Result.Print());
+            Log.Information($"Source: {source1.Print()}");
+            Log.Information($"Solution: {new UnateCovering(source1).Result.Print()}");
             System.Console.WriteLine();
 
-            Log.Information("Source: " + source2.Print());
-            Log.Information("Solution: " + new UnateCovering(source2).Result.Print());
+            Log.Information($"Source: {source2.Print()}");
+            Log.Information($"Solution: {new UnateCovering(source2).Result.Print()}");
             System.Console.WriteLine();
 
-            Log.Information("Source: " + source3.Print());
-            Log.Information("Solution: " + new UnateCovering(source3).Result.Print());
+            Log.Information($"Source: {source3.Print()}");
+            Log.Information($"Solution: {new UnateCovering(source3).Result.Print()}");
             System.Console.WriteLine();
 
-            Log.Information("Source: " + source4.Print());
-            Log.Information("Solution: " + new UnateCovering(source4).Result.Print());
+            Log.Information($"Source: {source4.Print()}");
+            Log.Information($"Solution: {new UnateCovering(source4).Result.Print()}");
             System.Console.WriteLine();
 
-            Log.Information("Source: " + source5.Print());
-            Log.Information("Solution: " + new UnateCovering(source5).Result.Print());
+            Log.Information($"Source: {source5.Print()}");
+            Log.Information($"Solution: {new UnateCovering(source5).Result.Print()}");
             System.Console.WriteLine();
 
             System.Console.ReadLine();

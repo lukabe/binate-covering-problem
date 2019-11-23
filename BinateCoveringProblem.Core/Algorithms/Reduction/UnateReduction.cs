@@ -36,8 +36,8 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     // add an essential column index to the solution
                     UpdateSolution(essentialColumn);
 
-                    Log.Information("Essential Column: " + source.Print());
-                    Log.Information("Current Solution: " + currentSolution.Print());
+                    Log.Information($"Essential Column: {{{essentialColumn}}} {source.Print()}");
+                    Log.Information($"Current Solution: {currentSolution.Print()}");
                     continue;
                 }
                 break;
@@ -56,7 +56,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     {
                         revSource.Remove(rowB.Key);
                         source = revSource.Reverse();
-                        Log.Information("Dominated Column: " + source.Print());
+                        Log.Information($"Dominated Column: {source.Print()}");
                         goto Start;
                     }
                 }

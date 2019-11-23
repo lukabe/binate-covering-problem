@@ -18,7 +18,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
             /// Reduction:
             /// </summary>
             // source set has non-cyclic core
-            Log.Information("Reduction");
+            Log.Information($"Reduction");
             Reduce();
 
             if (!source.Any())
@@ -27,7 +27,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
                 Result = currentSolution;
                 return;
             }
-            
+
             var lowerBound = LowerBound();
             if (lowerBound >= UpperBound)
             {
@@ -41,20 +41,20 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
             /// </summary>
             // source set has cyclic core
             var chosen = new WeightsCalculator(source).ChooseColumn();
-            Log.Information("Is occur the fork against column " + chosen);
-            
+            Log.Information($"Is occur the fork against column {chosen}");
+
             /// <summary>
             /// Option 1: chosen column is added to the solution; chosen = 1
             /// </summary>
-            Log.Information(string.Format("Option 1: column {0} is added to the solution", chosen));
+            Log.Information($"Option 1: column {chosen} is added to the solution");
 
             var source1 = source.ToDictionary();
             source1.RemoveAssociatedRows(chosen);
-            Log.Information("Select Chosen Column: " + source1.Print());
+            Log.Information($"Select Chosen Column: {source1.Print()}");
 
             var solution1 = currentSolution.ToList();
             solution1.Add(chosen);
-            Log.Information("Current Solution: " + solution1.Print());
+            Log.Information($"Current Solution: {solution1.Print()}");
 
             var result1 = new UnateCovering(source1, solution1, boundarySolution).Result;
 
@@ -71,11 +71,11 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
             /// <summary>
             /// Option 0: chosen column is removed from the source set; chosen = 0
             /// </summary>
-            Log.Information(string.Format("Option 0: column {0} is removed from the source set", chosen));
+            Log.Information($"Option 0: column {chosen} is removed from the source set");
 
             var source0 = source.ToDictionary();
             source0.RemoveColumn(chosen);
-            Log.Information("Remove Chosen Column: " + source0.Print());
+            Log.Information($"Remove Chosen Column: {source0.Print()}");
 
             var result0 = new UnateCovering(source0, currentSolution, boundarySolution).Result;
 

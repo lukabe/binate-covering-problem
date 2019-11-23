@@ -37,7 +37,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     foreach (var rowB in source.Where(r => r.Key != rowA.Key && !rowA.Value.Except(r.Value).Any()))
                     {
                         source.Remove(rowB.Key);
-                        Log.Information("Dominated Row: " + source.Print());
+                        Log.Information($"Dominated Row: {source.Print()}");
                         goto Start;
                     }
                 }
