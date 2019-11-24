@@ -37,7 +37,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     foreach (var rowB in source.Where(r => r.Key != rowA.Key && !rowA.Value.Except(r.Value).Any()))
                     {
                         source.Remove(rowB.Key);
-                        Log.Information($"Dominated Row: {source.Print()}");
+                        Log.Information($"Dominated Row: {{{rowB.Key}}} {source.Print()}");
                         goto Start;
                     }
                 }
@@ -45,7 +45,25 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
             }
         }
 
-        protected abstract void DominatedColumn();
+        protected void DominatedColumn()
+        {
+        Start:
+            while (true)
+            {
+                var revSource = source.Reverse();
+                foreach (var rowA in revSource)
+                {
+                    foreach (var rowB in revSource.Where(r => r.Key != rowA.Key && (!r.Value.Except(rowA.Value).Any() || r.Value.Except(rowA.Value).All(v => v < 0)) && !rowA.Value.Any(v => v < 0)))
+                    {
+                        revSource.Remove(rowB.Key);
+                        source = revSource.Reverse();
+                        Log.Information($"Dominated Column: {{{rowB.Key}}} {source.Print()}");
+                        goto Start;
+                    }
+                }
+                break;
+            }
+        }
 
         protected void UpdateSolution(int essentialColumn)
         {

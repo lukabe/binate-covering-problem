@@ -24,6 +24,8 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
         public List<int> Result { get; set; }
 
+        public abstract void Reduce();
+
         protected int UpperBound => boundarySolution.Count;
 
         protected int LowerBound()
@@ -31,7 +33,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
             // it's assumed that at least two
             var minimumLowerBound = 2;
             
-            var maxCliqueLength = new MaximumClique(source).Length();
+            var maxCliqueLength = new MaximumClique(source.WithoutNegations()).Length();
             var lowerBound = currentSolution.Count + maxCliqueLength;
 
             if (lowerBound > minimumLowerBound)

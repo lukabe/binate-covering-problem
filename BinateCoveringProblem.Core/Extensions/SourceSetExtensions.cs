@@ -20,12 +20,13 @@ namespace BinateCoveringProblem.Core.Extensions
             {
                 foreach (var column in row.Value)
                 {
-                    if (revSet.ContainsKey(column))
+                    var rowIndex = column > 0 ? row.Key : -row.Key;
+                    if (revSet.ContainsKey(Math.Abs(column)))
                     {
-                        revSet.FirstOrDefault(c => c.Key == column).Value.Add(row.Key);
+                        revSet.FirstOrDefault(c => c.Key == Math.Abs(column)).Value.Add(rowIndex);
                         continue;
                     }
-                    revSet.Add(column, new List<int>() { row.Key });
+                    revSet.Add(Math.Abs(column), new List<int>() { rowIndex });
                 }
             }
 
@@ -53,6 +54,32 @@ namespace BinateCoveringProblem.Core.Extensions
             {
                 source.Remove(row);
             }
+        }
+
+        public static Dictionary<int, List<int>> WithoutNegations(this Dictionary<int, List<int>> source)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException("Source is null");
+            }
+
+            var negationRows = new List<int>();
+
+            foreach (var row in source)
+            {
+                if (row.Value.Any(v => v < 0))
+                {
+                    negationRows.Add(row.Key);
+                }
+            }
+
+            var sourceWithoutNegations = source.ToDictionary();
+            foreach (var row in negationRows)
+            {
+                sourceWithoutNegations.Remove(row);
+            }
+
+            return sourceWithoutNegations;
         }
 
         public static void RemoveColumn(this Dictionary<int, List<int>> source, int column)
@@ -88,7 +115,7 @@ namespace BinateCoveringProblem.Core.Extensions
                 throw new ArgumentNullException("Source is null");
             }
 
-            return source.FirstOrDefault(s => s.Value.Count.Equals(1)).Value.FirstOrDefault(v => v > 0);
+            return source.FirstOrDefault(s => s.Value.Count.Equals(1) && s.Value.FirstOrDefault() > 0).Value.FirstOrDefault();
         }
 
         public static bool IsUnacceptableColumn(this Dictionary<int, List<int>> source)
@@ -108,7 +135,7 @@ namespace BinateCoveringProblem.Core.Extensions
                 throw new ArgumentNullException("Source is null");
             }
 
-            return source.FirstOrDefault(s => s.Value.Count.Equals(1)).Value.FirstOrDefault(v => v < 0);
+            return source.FirstOrDefault(s => s.Value.Count.Equals(1) && s.Value.FirstOrDefault() < 0).Value.FirstOrDefault();
         }
 
         public static bool IsTerminalCase(this Dictionary<int, List<int>> source)
@@ -118,11 +145,24 @@ namespace BinateCoveringProblem.Core.Extensions
                 throw new ArgumentNullException("Source is null");
             }
 
-            var column = 0;
-
-            if (source.Any(s => s.Value.Count.Equals(1)))
+            if (source.IsEssentialColumn() && source.IsTerminalCase(source.GetEssentialColumn()))
             {
-                column = source.FirstOrDefault(s => s.Value.Count.Equals(1)).Value.FirstOrDefault();
+                return true;
+            }
+
+            if (source.IsUnacceptableColumn() && source.IsTerminalCase(source.GetUnacceptableColumn()))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsTerminalCase(this Dictionary<int, List<int>> source, int column)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException("Source is null");
             }
 
             return source.Any(s => s.Value.Count.Equals(1) && s.Value.FirstOrDefault().Equals(-column));

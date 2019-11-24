@@ -18,10 +18,13 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                 tempSet = source.ToDictionary();
                 EssentialColumn();
                 UnacceptableColumn();
-                DominatedRow();
-                DominatedColumn();
+                if (!source.IsTerminalCase())
+                {
+                    DominatedRow();
+                    DominatedColumn();
+                }
             }
-            while (source.Any() && !source.Compare(tempSet) && !source.IsTerminalCase());
+            while (source.Any() && !source.Compare(tempSet));
         }
 
         protected override void EssentialColumn()
@@ -63,16 +66,11 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                     // remove negation of unacceptable column from all rows
                     source.RemoveColumn(-unacceptableColumn);
 
-                    Log.Information($"Unacceptable Column: {{{-unacceptableColumn}}} {source.Print()}");
+                    Log.Information($"Unacceptable Column: {{{Math.Abs(unacceptableColumn)}}} {source.Print()}");
                     continue;
                 }
                 break;
             }
-        }
-
-        protected override void DominatedColumn()
-        {
-            throw new NotImplementedException();
         }
     }
 }

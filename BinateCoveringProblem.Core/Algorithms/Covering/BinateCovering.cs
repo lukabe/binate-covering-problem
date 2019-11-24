@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace BinateCoveringProblem.Core.Algorithms.Covering
 {
-    public class UnateCovering : CoveringBase
+    public class BinateCovering : CoveringBase
     {
-        public UnateCovering(Dictionary<int, List<int>> source, List<int> currentSolution = null, List<int> boundarySolution = null) 
+        public BinateCovering(Dictionary<int, List<int>> source, List<int> currentSolution = null, List<int> boundarySolution = null) 
             : base(source, currentSolution, boundarySolution) { }
 
         public override void Steps()
@@ -28,6 +28,14 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
                 return;
             }
 
+            if (source.IsTerminalCase())
+            {
+                // source set was't completely reduced but solution is't possible
+                Log.Information($"Terminal case");
+                Result = boundarySolution;
+                return;
+            }
+
             var lowerBound = LowerBound();
             if (lowerBound >= UpperBound)
             {
@@ -40,7 +48,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
             /// Fork: choose column against whick will occur the fork
             /// </summary>
             // source set has cyclic core
-            var chosen = new WeightsCalculator(source).ChooseColumn();
+            var chosen = new WeightsCalculator(source.WithoutNegations()).ChooseColumn();
             Log.Information($"Is occur the fork against column {chosen}");
 
             /// <summary>
@@ -50,6 +58,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
             var source1 = source.ToDictionary();
             source1.RemoveAssociatedRows(chosen);
+            source1.RemoveColumn(-chosen);
             Log.Information($"Select Chosen Column: {{{chosen}}} {source1.Print()}");
 
             var solution1 = currentSolution.ToList();
@@ -75,6 +84,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
             var source0 = source.ToDictionary();
             source0.RemoveColumn(chosen);
+            source0.RemoveColumn(-chosen);
             Log.Information($"Remove Chosen Column: {{{chosen}}} {source0.Print()}");
 
             var result0 = new UnateCovering(source0, currentSolution, boundarySolution).Result;
@@ -90,7 +100,7 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
         public override void Reduce()
         {
-            var reduction = new UnateReduction(source, currentSolution);
+            var reduction = new BinateReduction(source, currentSolution);
             source = reduction.Result.ReducedSource;
             currentSolution = reduction.Result.UpdatedSolution;
         }

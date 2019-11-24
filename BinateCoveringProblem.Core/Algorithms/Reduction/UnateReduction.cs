@@ -43,25 +43,5 @@ namespace BinateCoveringProblem.Core.Algorithms.Reduction
                 break;
             }
         }
-
-        protected override void DominatedColumn()
-        {
-        Start:
-            while (true)
-            {
-                var revSource = source.Reverse();
-                foreach (var rowA in revSource)
-                {
-                    foreach (var rowB in revSource.Where(r => r.Key != rowA.Key && !r.Value.Except(rowA.Value).Any()))
-                    {
-                        revSource.Remove(rowB.Key);
-                        source = revSource.Reverse();
-                        Log.Information($"Dominated Column: {source.Print()}");
-                        goto Start;
-                    }
-                }
-                break;
-            }
-        }
     }
 }
