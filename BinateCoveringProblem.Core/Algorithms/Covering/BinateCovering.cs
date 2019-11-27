@@ -30,8 +30,8 @@ namespace BinateCoveringProblem.Core.Algorithms.Covering
 
             if (source.IsTerminalCase())
             {
-                // source set was't completely reduced but solution is't possible
-                Log.Information($"Terminal case");
+                // source set was't completely reduced but covering is impossible
+                Log.Information($"Terminal case - covering is impossible");
                 Result = boundarySolution;
                 return;
             }

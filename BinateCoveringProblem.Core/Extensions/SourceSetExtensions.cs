@@ -168,6 +168,16 @@ namespace BinateCoveringProblem.Core.Extensions
             return source.Any(s => s.Value.Count.Equals(1) && s.Value.FirstOrDefault().Equals(-column));
         }
 
+        public static bool IsBinate(this Dictionary<int, List<int>> source)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException("Source is null");
+            }
+
+            return source.Any(s => s.Value.Any(v => v < 0));
+        }
+
         public static string Print(this Dictionary<int, List<int>> source)
         {
             if (source is null)
