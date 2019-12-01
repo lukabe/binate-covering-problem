@@ -1,12 +1,57 @@
 ﻿<Window x:Class="BinateCoveringProblem.App.Shell.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BinateCoveringProblem.App.Shell"
-        mc:Ignorable="d"
-        Title="ShellView" Height="450" Width="800">
+        xmlns:cm="http://www.caliburnproject.org"
+        Title="ShellView" Height="650" Width="740" MinWidth="740">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="338*" />
+            <ColumnDefinition Width="402" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Orientation="Vertical" Margin="15">
+                    <TextBlock Text="Columns" FontSize="18" Margin="0 5" TextAlignment="Right" />
+                    <TextBlock Text="Rows" FontSize="18" Margin="0 5" TextAlignment="Right"  />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="15">
+                    <TextBox FontSize="18" Margin="0 5" Text="{Binding ColumnsCount}" TextAlignment="Center" Width="32" />
+                    <TextBox FontSize="18" Margin="0 5" Text="{Binding RowsCount}" TextAlignment="Center" Width="32" />
+                </StackPanel>
+            </StackPanel>
+            <DataGrid cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValue($eventArgs)]" ItemsSource="{Binding TestSource}" HeadersVisibility="None" FontSize="18" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="Transparent" HorizontalAlignment="Center" CanUserAddRows="False" Margin="20 10" SelectionMode="Single" IsReadOnly="True" >
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#f0f0f0" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Width" Value="35" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Background" Value="#f0f0f0"/>
+                        <Setter Property="Foreground" Value="#000000"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="#68c6e8"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+        </StackPanel>
+        <Grid Grid.Column="1"></Grid>
     </Grid>
 </Window>
