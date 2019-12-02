@@ -11,6 +11,9 @@
                     <FontFamily x:Key="FontAwesomeRegular">/Fonts/fa-regular.otf#Font Awesome 5 Free Regular</FontFamily>
                     <FontFamily x:Key="FontAwesomeSolid">/Fonts/fa-solid.otf#Font Awesome 5 Free Solid</FontFamily>
                 </ResourceDictionary>
+                <ResourceDictionary Source="Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="Styles/TextBoxStyle.xaml" />
+                <ResourceDictionary Source="Styles/DataGridStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

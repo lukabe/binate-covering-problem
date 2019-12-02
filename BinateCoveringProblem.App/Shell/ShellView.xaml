@@ -17,47 +17,23 @@
                     <TextBlock Text="Rows" FontSize="18" Margin="0 5" TextAlignment="Right"  />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
-                    <Button cm:Message.Attach="DecreaseColumnsCount" FontSize="18" Margin="0 5" Content="&#xf068;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
-                    <Button cm:Message.Attach="DecreaseRowsCount" FontSize="18" Margin="0 5" Content="&#xf068;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
+                    <Button cm:Message.Attach="DecreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
+                    <Button cm:Message.Attach="DecreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5 15">
-                    <TextBox FontSize="18" Margin="0 5" Text="{Binding ColumnsCount}" TextAlignment="Center" Width="32" />
-                    <TextBox FontSize="18" Margin="0 5" Text="{Binding RowsCount}" TextAlignment="Center" Width="32" />
+                    <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding ColumnsCount}" Margin="0 5" />
+                    <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding RowsCount}" Margin="0 5" />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
-                    <Button cm:Message.Attach="IncreaseColumnsCount" FontSize="18" Margin="0 5" Content="&#xf067;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
-                    <Button cm:Message.Attach="IncreaseRowsCount" FontSize="18" Margin="0 5" Content="&#xf067;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
+                    <Button cm:Message.Attach="IncreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
+                    <Button cm:Message.Attach="IncreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
                 </StackPanel>
             </StackPanel>
-            <DataGrid cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValue($eventArgs)]" ItemsSource="{Binding InputMatrix}" HeadersVisibility="None" FontSize="18" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="Transparent" HorizontalAlignment="Center" CanUserAddRows="False" Margin="20 10" SelectionMode="Single" IsReadOnly="True" >
-                <DataGrid.Resources>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#f0f0f0" />
-                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                </DataGrid.Resources>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="BorderThickness" Value="0"/>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                        <Setter Property="Width" Value="35" />
-                        <Setter Property="Height" Value="30" />
-                        <Setter Property="Margin" Value="0" />
-                        <Setter Property="Background" Value="#f0f0f0"/>
-                        <Setter Property="Foreground" Value="#000000"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Background" Value="#68c6e8"/>
-                                <Setter Property="Foreground" Value="#ffffff"/>
-                                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.CellStyle>
+            <DataGrid Style="{StaticResource InputMatrixDataGrid}"
+                      RowStyle="{StaticResource InputMatrixDataGridRow}"
+                      CellStyle="{StaticResource InputMatrixDataGridCell}"
+                      cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValue($eventArgs)]" 
+                      ItemsSource="{Binding InputMatrix}" Margin="20 10" >
             </DataGrid>
         </StackPanel>
         <Grid Grid.Column="1"></Grid>
