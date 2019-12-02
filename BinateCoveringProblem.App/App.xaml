@@ -7,6 +7,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="Bootstrapper" />
+                    <FontFamily x:Key="FontAwesomeBrands">/Fonts/fa-brands.otf#Font Awesome 5 Brands Regular</FontFamily>
+                    <FontFamily x:Key="FontAwesomeRegular">/Fonts/fa-regular.otf#Font Awesome 5 Free Regular</FontFamily>
+                    <FontFamily x:Key="FontAwesomeSolid">/Fonts/fa-solid.otf#Font Awesome 5 Free Solid</FontFamily>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -16,12 +16,20 @@
                     <TextBlock Text="Columns" FontSize="18" Margin="0 5" TextAlignment="Right" />
                     <TextBlock Text="Rows" FontSize="18" Margin="0 5" TextAlignment="Right"  />
                 </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="15">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
+                    <Button cm:Message.Attach="DecreaseColumnsCount" FontSize="18" Margin="0 5" Content="&#xf068;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
+                    <Button cm:Message.Attach="DecreaseRowsCount" FontSize="18" Margin="0 5" Content="&#xf068;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5 15">
                     <TextBox FontSize="18" Margin="0 5" Text="{Binding ColumnsCount}" TextAlignment="Center" Width="32" />
                     <TextBox FontSize="18" Margin="0 5" Text="{Binding RowsCount}" TextAlignment="Center" Width="32" />
                 </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
+                    <Button cm:Message.Attach="IncreaseColumnsCount" FontSize="18" Margin="0 5" Content="&#xf067;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
+                    <Button cm:Message.Attach="IncreaseRowsCount" FontSize="18" Margin="0 5" Content="&#xf067;" FontFamily="{StaticResource FontAwesomeSolid}" Width="32" Height="26" Background="Transparent" BorderBrush="#868e9c" Foreground="#4a4e54" />
+                </StackPanel>
             </StackPanel>
-            <DataGrid cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValue($eventArgs)]" ItemsSource="{Binding TestSource}" HeadersVisibility="None" FontSize="18" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="Transparent" HorizontalAlignment="Center" CanUserAddRows="False" Margin="20 10" SelectionMode="Single" IsReadOnly="True" >
+            <DataGrid cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValue($eventArgs)]" ItemsSource="{Binding InputMatrix}" HeadersVisibility="None" FontSize="18" VerticalGridLinesBrush="Transparent" HorizontalGridLinesBrush="Transparent" HorizontalAlignment="Center" CanUserAddRows="False" Margin="20 10" SelectionMode="Single" IsReadOnly="True" >
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#f0f0f0" />
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />

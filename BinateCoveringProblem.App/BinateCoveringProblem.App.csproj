@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\fa-brands.otf" />
+    <None Remove="Fonts\fa-regular.otf" />
+    <None Remove="Fonts\fa-solid.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.102-alpha" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\fa-brands.otf" />
+    <Resource Include="Fonts\fa-regular.otf" />
+    <Resource Include="Fonts\fa-solid.otf" />
   </ItemGroup>
 
 </Project>

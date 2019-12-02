@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using BinateCoveringProblem.App.Extensions;
+using Caliburn.Micro;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Controls;
@@ -8,9 +9,12 @@ namespace BinateCoveringProblem.App.Shell
 {
     public class ShellViewModel : Screen
     {
+        private readonly string[] availableValues = new string[] { "0", "1", "-1" };
+
         public ShellViewModel()
         {
-            
+            RowsCount = 5;
+            ColumnsCount = 5;
         }
 
         private int rowsCount;
@@ -49,20 +53,20 @@ namespace BinateCoveringProblem.App.Shell
             }
         }
 
-        private DataView testSource;
-        public DataView TestSource
+        private DataView inputMatrix;
+        public DataView InputMatrix
         {
             get
             {
-                return testSource;
+                return inputMatrix;
             }
             set
             {
-                if (value == testSource)
+                if (value == inputMatrix)
                     return;
 
-                testSource = value;
-                NotifyOfPropertyChange(() => TestSource);
+                inputMatrix = value;
+                NotifyOfPropertyChange(() => InputMatrix);
             }
         }
 
@@ -83,7 +87,7 @@ namespace BinateCoveringProblem.App.Shell
                 data.Rows.Add(columns.ToArray());
             }
 
-            TestSource = data.DefaultView;
+            InputMatrix = data.DefaultView;
         }
 
         public void ChangeCellValue(MouseButtonEventArgs e)
@@ -92,8 +96,29 @@ namespace BinateCoveringProblem.App.Shell
             if (cell != null)
             {
                 var value = cell.Text;
-                cell.Text = value == "0" ? "1" : "0";
+
+                cell.Text = availableValues.GetNext(value);
             }
+        }
+
+        public void IncreaseColumnsCount()
+        {
+            ColumnsCount++;
+        }
+
+        public void DecreaseColumnsCount()
+        {
+            ColumnsCount--;
+        }
+
+        public void IncreaseRowsCount()
+        {
+            RowsCount++;
+        }
+
+        public void DecreaseRowsCount()
+        {
+            RowsCount--;
         }
     }
 }
