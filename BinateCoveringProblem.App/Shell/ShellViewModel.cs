@@ -103,21 +103,41 @@ namespace BinateCoveringProblem.App.Shell
 
         public void IncreaseColumnsCount()
         {
+            if (ColumnsCount == 20)
+            {
+                return;
+            }
+
             ColumnsCount++;
         }
 
         public void DecreaseColumnsCount()
         {
+            if (ColumnsCount == 1)
+            {
+                return;
+            }
+                
             ColumnsCount--;
         }
 
         public void IncreaseRowsCount()
         {
+            if (RowsCount == 20)
+            {
+                return;
+            }
+
             RowsCount++;
         }
 
         public void DecreaseRowsCount()
         {
+            if (RowsCount == 1)
+            {
+                return;
+            }
+
             RowsCount--;
         }
     }
