@@ -32,7 +32,8 @@
             <DataGrid Style="{StaticResource InputMatrixDataGrid}"
                       RowStyle="{StaticResource InputMatrixDataGridRow}"
                       CellStyle="{StaticResource InputMatrixDataGridCell}"
-                      cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValue($eventArgs)]" 
+                      cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValue($eventArgs)];
+                                         [Event SelectedCellsChanged] = [Action OnSelectedCellsChanged($eventArgs)];" 
                       ItemsSource="{Binding InputMatrix}" Margin="20 10" >
             </DataGrid>
         </StackPanel>

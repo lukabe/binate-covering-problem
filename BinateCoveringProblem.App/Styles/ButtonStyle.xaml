@@ -5,11 +5,28 @@
     <Style TargetType="Button" x:Key="FontAwesomeButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="#868e9c" />
+        <Setter Property="BorderThickness" Value="0.8" />
         <Setter Property="Foreground" Value="#4a4e54" />
         <Setter Property="FontSize" Value="18" />
         <Setter Property="FontFamily" Value="{StaticResource FontAwesomeSolid}" />
         <Setter Property="Width" Value="32" />
         <Setter Property="Height" Value="26" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#68c6e8"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+                <Setter Property="BorderBrush" Value="#68c6e8"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
 </ResourceDictionary>
