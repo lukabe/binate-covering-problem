@@ -145,7 +145,10 @@ namespace BinateCoveringProblem.App.Shell
             }
         }
 
-        public void ChangeCellValue(MouseButtonEventArgs e)
+        /// <summary>
+        /// Raises on each cell click and changes the value view of the selected cell
+        /// </summary>
+        public void ChangeCellValueView(MouseButtonEventArgs e)
         {
             var cell = e.OriginalSource as TextBlock;
             if (cell != null)
@@ -155,7 +158,13 @@ namespace BinateCoveringProblem.App.Shell
             }
         }
 
-        public void OnSelectedCellsChanged(SelectedCellsChangedEventArgs e)
+        private int selectedRowIndex;
+        private int selectedColumnIndex;
+
+        /// <summary>
+        /// Raises on each change of the selected cell
+        /// </summary>
+        public void OnSelectedCellChanged(SelectedCellsChangedEventArgs e)
         {
             var cell = e.AddedCells.FirstOrDefault();
 
@@ -163,12 +172,25 @@ namespace BinateCoveringProblem.App.Shell
             {
                 var row = (cell.Item as DataRowView).Row;
 
-                var rowIndex = matrix.Rows.IndexOf(row);
-                var columnIndex = cell.Column.DisplayIndex;
+                selectedRowIndex = matrix.Rows.IndexOf(row);
+                selectedColumnIndex = cell.Column.DisplayIndex;
 
-                var value = matrix.Rows[rowIndex][columnIndex];
-                matrix.Rows[rowIndex][columnIndex] = availableValues.GetNext(value);
+                ChangeSelectedCellValue();
             }
+        }
+
+        /// <summary>
+        /// Raises on selecting the currently selected cell
+        /// </summary>
+        public void OnSelectedCellSelect()
+        {
+            ChangeSelectedCellValue();
+        }
+
+        private void ChangeSelectedCellValue()
+        {
+            var value = matrix.Rows[selectedRowIndex][selectedColumnIndex];
+            matrix.Rows[selectedRowIndex][selectedColumnIndex] = availableValues.GetNext(value);
         }
 
         public void IncreaseColumnsCount()
