@@ -2,12 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:cm="http://www.caliburnproject.org">
-    <DataGrid Style="{StaticResource InputMatrixDataGrid}"
-              RowStyle="{StaticResource InputMatrixDataGridRow}"
-              CellStyle="{StaticResource InputMatrixDataGridCell}"
+    <DataGrid Style="{StaticResource MatrixDataGrid}"
+              RowStyle="{StaticResource MatrixDataGridRow}"
+              CellStyle="{StaticResource MatrixDataGridCell}"
+              ColumnHeaderStyle="{StaticResource MatrixDataGridColumnHeader}"
+              RowHeaderStyle="{StaticResource MatrixDataGridRowHeader}"
               cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValueView($eventArgs)];
                                  [Event MouseLeftButtonDown] = [Action OnSelectedCellSelected];
-                                 [Event SelectedCellsChanged] = [Action OnSelectedCellChanged($eventArgs)];" 
-              ItemsSource="{Binding InputMatrix}" Margin="20 10" >
-    </DataGrid>
+                                 [Event SelectedCellsChanged] = [Action OnSelectedCellChanged($eventArgs)];
+                                 [Event LoadingRow] = [Action OnLoadingRow($eventArgs)];" 
+              ItemsSource="{Binding MatrixView}"
+              Margin="20 10" />
 </UserControl>

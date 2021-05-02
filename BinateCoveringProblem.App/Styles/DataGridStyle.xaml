@@ -2,15 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BinateCoveringProblem.App.Styles">
     
-    <Style TargetType="DataGrid" x:Key="InputMatrixDataGrid">
-        <Setter Property="HeadersVisibility" Value="None" />
+    <Style TargetType="DataGrid" x:Key="MatrixDataGrid">
         <Setter Property="FontSize" Value="18" />
         <Setter Property="VerticalGridLinesBrush" Value="Transparent" />
         <Setter Property="HorizontalGridLinesBrush" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="CanUserAddRows" Value="False" />
+        <Setter Property="CanUserDeleteRows" Value="False" />
+        <Setter Property="CanUserReorderColumns" Value="False" />
+        <Setter Property="CanUserResizeColumns" Value="False" />
+        <Setter Property="CanUserResizeRows" Value="False" />
+        <Setter Property="CanUserSortColumns" Value="False" />
         <Setter Property="SelectionMode" Value="Single" />
         <Setter Property="SelectionUnit" Value="Cell" />
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="IsReadOnly" Value="True" />
         <Style.Resources>
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#f0f0f0" />
@@ -18,11 +23,11 @@
         </Style.Resources>
     </Style>
 
-    <Style TargetType="DataGridRow" x:Key="InputMatrixDataGridRow">
+    <Style TargetType="DataGridRow" x:Key="MatrixDataGridRow">
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
-    <Style TargetType="DataGridCell" x:Key="InputMatrixDataGridCell">
+    <Style TargetType="DataGridCell" x:Key="MatrixDataGridCell">
         <Setter Property="TextBlock.TextAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Width" Value="35" />
@@ -38,6 +43,25 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGridColumnHeader" x:Key="MatrixDataGridColumnHeader">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="0 0 0 6" />
+    </Style>
+
+    <Style TargetType="DataGridRowHeader" x:Key="MatrixDataGridRowHeader">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Padding" Value="0 0 8 0" />
+        <Setter Property="MinWidth" Value="28" />
+        <Style.Resources>
+            <Style TargetType="StackPanel">
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+        </Style.Resources>
     </Style>
 
 </ResourceDictionary>

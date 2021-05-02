@@ -9,8 +9,8 @@ namespace BinateCoveringProblem.App.Shell.Matrix
     public class MatrixViewModel : PropertyChangedBase, IMatrixViewModel
     {
         private readonly IMatrixRepresentation matrixRepresentation;
-        private DataView matrixView;
 
+        private DataView matrixView;
         public DataView MatrixView
         {
             get
@@ -84,6 +84,15 @@ namespace BinateCoveringProblem.App.Shell.Matrix
         public void OnSelectedCellSelected()
         {
             matrixRepresentation.ChangeSelectedCellValue();
+        }
+
+        /// <summary>
+        /// Raises on each matrix size change (as many times as there are rows)
+        /// </summary>
+        public void OnLoadingRow(DataGridRowEventArgs e)
+        {
+            var index = e.Row.GetIndex() + 1;
+            e.Row.Header = $"y{index}";
         }
     }
 }

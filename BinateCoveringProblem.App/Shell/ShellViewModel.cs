@@ -17,9 +17,6 @@ namespace BinateCoveringProblem.App.Shell
         public ShellViewModel(IMatrixViewModel matrix)
         {
             this.Matrix = matrix;
-
-            ColumnsCount = ColumnsDefaultCount;
-            RowsCount = RowsDefaultCount;
         }
 
         private int rowsCount;
@@ -106,6 +103,14 @@ namespace BinateCoveringProblem.App.Shell
             }
 
             RowsCount--;
+        }
+
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+
+            ColumnsCount = ColumnsDefaultCount;
+            RowsCount = RowsDefaultCount;
         }
     }
 }

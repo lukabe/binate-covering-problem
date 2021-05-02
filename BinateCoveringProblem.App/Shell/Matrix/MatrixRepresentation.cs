@@ -34,7 +34,7 @@ namespace BinateCoveringProblem.App.Shell.Matrix
             {
                 for (int i = currentCount + 1; i <= count; i++)
                 {
-                    var column = new DataColumn(i.ToString())
+                    var column = new DataColumn($"x{i}")
                     {
                         DefaultValue = DefaultCellValue,
                         ReadOnly = false
@@ -46,9 +46,9 @@ namespace BinateCoveringProblem.App.Shell.Matrix
             
             if (count < currentCount)
             {
-                for (int i = currentCount; i > count; i--)
+                for (int i = currentCount - 1; i >= count; i--)
                 {
-                    matrix.Columns.Remove(i.ToString());
+                    matrix.Columns.RemoveAt(i);
                 }
             }
         }
@@ -72,11 +72,9 @@ namespace BinateCoveringProblem.App.Shell.Matrix
             
             if (count < currentCount)
             {
-                for (int i = currentCount; i > count; i--)
+                for (int i = currentCount - 1; i >= count; i--)
                 {
-                    var index = i - 1;
-                    var row = matrix.Rows[index];
-                    matrix.Rows.Remove(row);
+                    matrix.Rows.RemoveAt(i);
                 }
             }
         }
@@ -108,7 +106,12 @@ namespace BinateCoveringProblem.App.Shell.Matrix
 
         public string GetNextCellValue(string value)
         {
-            return AvailableCellValues.GetNext(value);
+            if (AvailableCellValues.Contains(value))
+            {
+                return AvailableCellValues.GetNext(value);
+            }
+
+            return value;
         }
     }
 }
