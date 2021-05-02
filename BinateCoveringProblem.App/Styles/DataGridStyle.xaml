@@ -32,7 +32,7 @@
         <Setter Property="Foreground" Value="#000000"/>
         <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
         <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
+            <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#68c6e8"/>
                 <Setter Property="Foreground" Value="#ffffff"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>

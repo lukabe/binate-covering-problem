@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinateCoveringProblem.Core"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinateCoveringProblem.Console", "BinateCoveringProblem.Console\BinateCoveringProblem.Console.csproj", "{2C977C3D-3FD1-4EC3-A337-00824C2232E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinateCoveringProblem.App", "BinateCoveringProblem.App\BinateCoveringProblem.App.csproj", "{5E552CDB-5076-4A89-9E53-2E06281C9513}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinateCoveringProblem.App", "BinateCoveringProblem.App\BinateCoveringProblem.App.csproj", "{5E552CDB-5076-4A89-9E53-2E06281C9513}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

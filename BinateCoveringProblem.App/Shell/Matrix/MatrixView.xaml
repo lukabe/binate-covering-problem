@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="BinateCoveringProblem.App.Shell.Matrix.MatrixView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cm="http://www.caliburnproject.org">
+    <DataGrid Style="{StaticResource InputMatrixDataGrid}"
+              RowStyle="{StaticResource InputMatrixDataGridRow}"
+              CellStyle="{StaticResource InputMatrixDataGridCell}"
+              cm:Message.Attach="[Event PreviewMouseLeftButtonDown] = [Action ChangeCellValueView($eventArgs)];
+                                 [Event MouseLeftButtonDown] = [Action OnSelectedCellSelected];
+                                 [Event SelectedCellsChanged] = [Action OnSelectedCellChanged($eventArgs)];" 
+              ItemsSource="{Binding InputMatrix}" Margin="20 10" >
+    </DataGrid>
+</UserControl>
