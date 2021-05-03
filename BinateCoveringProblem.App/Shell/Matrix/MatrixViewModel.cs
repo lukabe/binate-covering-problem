@@ -35,16 +35,18 @@ namespace BinateCoveringProblem.App.Shell.Matrix
         public void ChangeColumnsCount(int count)
         {
             matrixRepresentation.ChangeColumnsCount(count);
-
-            MatrixView = matrixRepresentation.ToDataView;
+            
+            MatrixView = matrixRepresentation.ToDataView();
         }
 
         public void ChangeRowsCount(int count)
         {
             matrixRepresentation.ChangeRowsCount(count);
 
-            MatrixView = matrixRepresentation.ToDataView;
+            MatrixView = matrixRepresentation.ToDataView();
         }
+
+        public DataTable ToTable() => MatrixView.ToTable();
 
         /// <summary>
         /// Raises on each cell click and changes the value view of the selected cell

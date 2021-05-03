@@ -36,6 +36,11 @@
         </StackPanel>
 
         <ContentControl x:Name="Matrix" Margin="26 15 30 15"/>
+        
+        <DockPanel HorizontalAlignment="Center" Margin="15 10">
+            <TextBlock Text="Solution:" FontSize="18" Margin="5" />
+            <TextBlock Text="{Binding Result}" TextWrapping="WrapWithOverflow" FontSize="18" Margin="5" />
+        </DockPanel>
 
         <Button cm:Message.Attach="Solve" Style="{StaticResource TextButton}" Content="Solve" Margin="15 20" />
     </StackPanel>

@@ -1,4 +1,6 @@
 ﻿using BinateCoveringProblem.App.Shell.Matrix;
+using BinateCoveringProblem.Core.Algorithms.Covering;
+using BinateCoveringProblem.Core.Extensions;
 using Caliburn.Micro;
 
 namespace BinateCoveringProblem.App.Shell
@@ -55,6 +57,23 @@ namespace BinateCoveringProblem.App.Shell
             }
         }
 
+        private string result;
+        public string Result
+        {
+            get
+            {
+                return result;
+            }
+            set
+            {
+                if (value == result)
+                    return;
+
+                result = value;
+                NotifyOfPropertyChange(() => Result);
+            }
+        }
+
         private void OnColumnsCountChanged()
         {
             Matrix.ChangeColumnsCount(ColumnsCount);
@@ -103,6 +122,17 @@ namespace BinateCoveringProblem.App.Shell
             }
 
             RowsCount--;
+        }
+
+        public void Solve()
+        {
+            var source = Matrix.ToTable().ToDictionary();
+
+            ICoveringAlgorithm covering = source.IsBinate() 
+                ? new BinateCovering(source) 
+                : new UnateCovering(source);
+            
+            Result = covering.Result.Print();
         }
 
         protected override void OnViewLoaded(object view)

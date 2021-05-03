@@ -19,7 +19,7 @@ namespace BinateCoveringProblem.App.Shell.Matrix
             selectedCell = new Cell();
         }
 
-        public DataView ToDataView => matrix.AsDataView();
+        public DataView ToDataView() => matrix.AsDataView();
 
         public void ChangeColumnsCount(int count)
         {
