@@ -28,5 +28,30 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style TargetType="Button" x:Key="TextButton">
+        <Setter Property="Background" Value="#1e8cb4" />
+        <Setter Property="BorderBrush" Value="#1e8cb4" />
+        <Setter Property="BorderThickness" Value="0.8" />
+        <Setter Property="Foreground" Value="#ffffff" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Width" Value="120" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#146e96"/>
+                <Setter Property="BorderBrush" Value="#146e96"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     
 </ResourceDictionary>

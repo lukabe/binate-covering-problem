@@ -11,6 +11,5 @@
                                  [Event MouseLeftButtonDown] = [Action OnSelectedCellSelected];
                                  [Event SelectedCellsChanged] = [Action OnSelectedCellChanged($eventArgs)];
                                  [Event LoadingRow] = [Action OnLoadingRow($eventArgs)];" 
-              ItemsSource="{Binding MatrixView}"
-              Margin="20 10" />
+              ItemsSource="{Binding MatrixView}" />
 </UserControl>

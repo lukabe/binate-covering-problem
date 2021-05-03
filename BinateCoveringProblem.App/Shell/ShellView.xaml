@@ -2,33 +2,41 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cm="http://www.caliburnproject.org"
-        Title="BCP" Height="650" Width="740" MinWidth="740">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="338*" />
-            <ColumnDefinition Width="402" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <StackPanel Orientation="Vertical" Margin="15">
-                    <TextBlock Text="Columns" FontSize="18" Margin="0 5" TextAlignment="Right" />
-                    <TextBlock Text="Rows" FontSize="18" Margin="0 5" TextAlignment="Right"  />
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
-                    <Button cm:Message.Attach="DecreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
-                    <Button cm:Message.Attach="DecreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5 15">
-                    <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding ColumnsCount}" Margin="0 5" IsReadOnly="true" />
-                    <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding RowsCount}" Margin="0 5" IsReadOnly="true" />
-                </StackPanel>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
-                    <Button cm:Message.Attach="IncreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
-                    <Button cm:Message.Attach="IncreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
-                </StackPanel>
-            </StackPanel>
-            <ContentControl x:Name="Matrix" />
+        Title="BCP/UCP Solution"
+        Width="520" MinWidth="520"
+        SizeToContent="Height"
+        ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical" Margin="0 0 0 10">
+        <StackPanel Orientation="Vertical" Background="#ffffb4">
+            <TextBlock TextWrapping="WrapWithOverflow" Margin="15 15 15 5">
+                <Bold>Binate Covering Problem</Bold> (BCP) and <Bold>Unate Covering Problem</Bold> (UCP) are issues that describe the determination of the minimum coverage of the set. BCP and UCP belong to the group of NP-hard issues.
+            </TextBlock>
+            <TextBlock TextWrapping="WrapWithOverflow" Margin="15 5 15 15">
+                In BCP a set for coverage is filled with elements from the set <Bold>{1, -1, 0}</Bold> and in UCP from the set <Bold>{1, 0}</Bold>.
+            </TextBlock>
         </StackPanel>
-        <Grid Grid.Column="1"></Grid>
-    </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
+            <StackPanel Orientation="Vertical" Margin="15">
+                <TextBlock Text="Columns" FontSize="18" Margin="0 5" TextAlignment="Right" />
+                <TextBlock Text="Rows" FontSize="18" Margin="0 5" TextAlignment="Right"  />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
+                <Button cm:Message.Attach="DecreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
+                <Button cm:Message.Attach="DecreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5 15">
+                <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding ColumnsCount}" Margin="0 5" IsReadOnly="true" />
+                <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding RowsCount}" Margin="0 5" IsReadOnly="true" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
+                <Button cm:Message.Attach="IncreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
+                <Button cm:Message.Attach="IncreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
+            </StackPanel>
+        </StackPanel>
+
+        <ContentControl x:Name="Matrix" Margin="26 15 30 15"/>
+
+        <Button cm:Message.Attach="Solve" Style="{StaticResource TextButton}" Content="Solve" Margin="15 20" />
+    </StackPanel>
 </Window>
