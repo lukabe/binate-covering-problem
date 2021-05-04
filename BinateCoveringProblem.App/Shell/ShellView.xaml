@@ -1,0 +1,29 @@
+﻿<Window x:Class="BinateCoveringProblem.App.Shell.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cm="http://www.caliburnproject.org"
+        Title="BCP/UCP Solution"
+        Width="520" MinWidth="520"
+        SizeToContent="Height"
+        ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical" Margin="0 0 0 10">
+        <StackPanel Orientation="Vertical" Background="#ffffb4">
+            <TextBlock TextWrapping="WrapWithOverflow" Margin="15 15 15 5">
+                <Bold>Binate Covering Problem</Bold> (BCP) and <Bold>Unate Covering Problem</Bold> (UCP) are issues that describe the determination of the minimum coverage of the set. BCP and UCP belong to the group of NP-hard issues.
+            </TextBlock>
+            <TextBlock TextWrapping="WrapWithOverflow" Margin="15 5 15 15">
+                In BCP a set for coverage is filled with elements from the set <Bold>{1, -1, 0}</Bold> and in UCP from the set <Bold>{1, 0}</Bold>.
+            </TextBlock>
+        </StackPanel>
+
+        <ContentControl x:Name="MatrixSettings" HorizontalAlignment="Center" Margin="0 5 0 0" />
+        <ContentControl x:Name="Matrix" Margin="26 15 30 15" />
+        
+        <DockPanel HorizontalAlignment="Center" Margin="15 10">
+            <TextBlock Text="Solution:" FontSize="18" Margin="5" />
+            <TextBlock Text="{Binding Result}" TextWrapping="WrapWithOverflow" FontSize="18" Margin="5" />
+        </DockPanel>
+
+        <Button cm:Message.Attach="Solve" Style="{StaticResource TextButton}" Content="Solve" Margin="15 20" />
+    </StackPanel>
+</Window>
