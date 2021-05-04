@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace BinateCoveringProblem.App.Shell.Matrix
+namespace BinateCoveringProblem.App.Matrix.Representation
 {
     public class MatrixRepresentation : IMatrixRepresentation
     {

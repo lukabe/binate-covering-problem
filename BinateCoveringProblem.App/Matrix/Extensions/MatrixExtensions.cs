@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace BinateCoveringProblem.App.Shell.Matrix
+namespace BinateCoveringProblem.App.Matrix.Extensions
 {
     public static class MatrixExtensions
     {

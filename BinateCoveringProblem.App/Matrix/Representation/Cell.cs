@@ -1,4 +1,4 @@
-﻿namespace BinateCoveringProblem.App.Shell.Matrix
+﻿namespace BinateCoveringProblem.App.Matrix.Representation
 {
     public class Cell
     {

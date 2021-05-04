@@ -1,4 +1,8 @@
-﻿using BinateCoveringProblem.App.Shell.Matrix;
+﻿using BinateCoveringProblem.App.Eventing;
+using BinateCoveringProblem.App.Eventing.Events;
+using BinateCoveringProblem.App.Matrix;
+using BinateCoveringProblem.App.Matrix.Extensions;
+using BinateCoveringProblem.App.Matrix.Settings;
 using BinateCoveringProblem.Core.Algorithms.Covering;
 using BinateCoveringProblem.Core.Extensions;
 using Caliburn.Micro;
@@ -7,55 +11,8 @@ namespace BinateCoveringProblem.App.Shell
 {
     public class ShellViewModel : Screen
     {
-        private static readonly int ColumnsUpperBound = 20;
-        private static readonly int ColumnsLowerBound = 1;
-        private static readonly int ColumnsDefaultCount = 5;
-        private static readonly int RowsUpperBound = 20;
-        private static readonly int RowsLowerBound = 1;
-        private static readonly int RowsDefaultCount = 5;
-
         public IMatrixViewModel Matrix { get; }
-
-        public ShellViewModel(IMatrixViewModel matrix)
-        {
-            this.Matrix = matrix;
-        }
-
-        private int rowsCount;
-        public int RowsCount
-        {
-            get
-            {
-                return rowsCount;
-            }
-            set
-            {
-                if (value == rowsCount)
-                    return;
-
-                rowsCount = value;
-                OnRowsCountChanged();
-                NotifyOfPropertyChange(() => RowsCount);
-            }
-        }
-
-        private int columnsCount;
-        public int ColumnsCount
-        {
-            get
-            {
-                return columnsCount;
-            }
-            set
-            {
-                if (value == columnsCount)
-                    return;
-
-                columnsCount = value;
-                OnColumnsCountChanged();
-                NotifyOfPropertyChange(() => ColumnsCount);
-            }
-        }
+        public IMatrixSettingsViewModel MatrixSettings { get; }
 
         private string result;
         public string Result
@@ -74,56 +31,17 @@ namespace BinateCoveringProblem.App.Shell
             }
         }
 
-        private void OnColumnsCountChanged()
+        public ShellViewModel(
+            IMatrixViewModel matrix,
+            IMatrixSettingsViewModel matrixSettings,
+            IEventStream eventStream)
         {
-            Matrix.ChangeColumnsCount(ColumnsCount);
+            this.Matrix = matrix;
+            this.MatrixSettings = matrixSettings;
+
+            eventStream.Subscribe<MatrixChanged>(OnMatrixChanged);
         }
-
-        private void OnRowsCountChanged()
-        {
-            Matrix.ChangeRowsCount(RowsCount);
-        }
-
-        public void IncreaseColumnsCount()
-        {
-            if (ColumnsCount == ColumnsUpperBound)
-            {
-                return;
-            }
-
-            ColumnsCount++;
-        }
-
-        public void DecreaseColumnsCount()
-        {
-            if (ColumnsCount == ColumnsLowerBound)
-            {
-                return;
-            }
-                
-            ColumnsCount--;
-        }
-
-        public void IncreaseRowsCount()
-        {
-            if (RowsCount == RowsUpperBound)
-            {
-                return;
-            }
-
-            RowsCount++;
-        }
-
-        public void DecreaseRowsCount()
-        {
-            if (RowsCount == RowsLowerBound)
-            {
-                return;
-            }
-
-            RowsCount--;
-        }
-
+        
         public void Solve()
         {
             var source = Matrix.ToTable().ToDictionary();
@@ -139,8 +57,12 @@ namespace BinateCoveringProblem.App.Shell
         {
             base.OnViewLoaded(view);
 
-            ColumnsCount = ColumnsDefaultCount;
-            RowsCount = RowsDefaultCount;
+            MatrixSettings.Initialize();
+        }
+
+        private void OnMatrixChanged(MatrixChanged e)
+        {
+            Result = string.Empty;
         }
     }
 }

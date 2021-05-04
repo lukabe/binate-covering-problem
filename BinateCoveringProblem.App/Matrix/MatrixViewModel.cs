@@ -3,13 +3,17 @@ using System.Linq;
 using Caliburn.Micro;
 using System.Windows.Input;
 using System.Windows.Controls;
+using BinateCoveringProblem.App.Eventing;
+using BinateCoveringProblem.App.Eventing.Events;
+using BinateCoveringProblem.App.Matrix.Representation;
 
-namespace BinateCoveringProblem.App.Shell.Matrix
+namespace BinateCoveringProblem.App.Matrix
 {
     public class MatrixViewModel : PropertyChangedBase, IMatrixViewModel
     {
         private readonly IMatrixRepresentation matrixRepresentation;
-
+        private readonly IEventStream eventStream;
+        
         private DataView matrixView;
         public DataView MatrixView
         {
@@ -27,23 +31,12 @@ namespace BinateCoveringProblem.App.Shell.Matrix
             }
         }
 
-        public MatrixViewModel(IMatrixRepresentation matrixRepresentation)
+        public MatrixViewModel(IMatrixRepresentation matrixRepresentation, IEventStream eventStream)
         {
             this.matrixRepresentation = matrixRepresentation;
-        }
+            this.eventStream = eventStream;
 
-        public void ChangeColumnsCount(int count)
-        {
-            matrixRepresentation.ChangeColumnsCount(count);
-            
-            MatrixView = matrixRepresentation.ToDataView();
-        }
-
-        public void ChangeRowsCount(int count)
-        {
-            matrixRepresentation.ChangeRowsCount(count);
-
-            MatrixView = matrixRepresentation.ToDataView();
+            eventStream.Subscribe<MatrixSizeChanged>(OnMatrixSizeChanged);
         }
 
         public DataTable ToTable() => MatrixView.ToTable();
@@ -77,6 +70,8 @@ namespace BinateCoveringProblem.App.Shell.Matrix
 
                 matrixRepresentation.ChangeSelectedCell(rowIndex, columnIndex);
                 matrixRepresentation.ChangeSelectedCellValue();
+                
+                eventStream.Publish(new MatrixChanged());
             }
         }
 
@@ -86,6 +81,8 @@ namespace BinateCoveringProblem.App.Shell.Matrix
         public void OnSelectedCellSelected()
         {
             matrixRepresentation.ChangeSelectedCellValue();
+            
+            eventStream.Publish(new MatrixChanged());
         }
 
         /// <summary>
@@ -95,6 +92,22 @@ namespace BinateCoveringProblem.App.Shell.Matrix
         {
             var index = e.Row.GetIndex() + 1;
             e.Row.Header = $"y{index}";
+        }
+
+        private void OnMatrixSizeChanged(MatrixSizeChanged e)
+        {
+            if (e.ColumnsCount.HasValue)
+            {
+                matrixRepresentation.ChangeColumnsCount(e.ColumnsCount.Value);
+            }
+
+            if (e.RowsCount.HasValue)
+            {
+                matrixRepresentation.ChangeRowsCount(e.RowsCount.Value);
+            }
+
+            MatrixView = matrixRepresentation.ToDataView();
+            eventStream.Publish(new MatrixChanged());
         }
     }
 }

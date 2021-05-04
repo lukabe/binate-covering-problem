@@ -16,26 +16,8 @@
             </TextBlock>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
-            <StackPanel Orientation="Vertical" Margin="15">
-                <TextBlock Text="Columns" FontSize="18" Margin="0 5" TextAlignment="Right" />
-                <TextBlock Text="Rows" FontSize="18" Margin="0 5" TextAlignment="Right"  />
-            </StackPanel>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
-                <Button cm:Message.Attach="DecreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
-                <Button cm:Message.Attach="DecreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf068;" Margin="0 5" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5 15">
-                <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding ColumnsCount}" Margin="0 5" IsReadOnly="true" />
-                <TextBox Style="{StaticResource CounterTextBox}" Text="{Binding RowsCount}" Margin="0 5" IsReadOnly="true" />
-            </StackPanel>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 15">
-                <Button cm:Message.Attach="IncreaseColumnsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
-                <Button cm:Message.Attach="IncreaseRowsCount" Style="{StaticResource FontAwesomeButton}" Content="&#xf067;" Margin="0 5" />
-            </StackPanel>
-        </StackPanel>
-
-        <ContentControl x:Name="Matrix" Margin="26 15 30 15"/>
+        <ContentControl x:Name="MatrixSettings" HorizontalAlignment="Center" Margin="0 5 0 0" />
+        <ContentControl x:Name="Matrix" Margin="26 15 30 15" />
         
         <DockPanel HorizontalAlignment="Center" Margin="15 10">
             <TextBlock Text="Solution:" FontSize="18" Margin="5" />

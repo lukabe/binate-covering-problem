@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace BinateCoveringProblem.App.Shell.Matrix
+namespace BinateCoveringProblem.App.Matrix.Representation
 {
     public interface IMatrixRepresentation
     {

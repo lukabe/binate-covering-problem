@@ -1,5 +1,8 @@
-﻿using BinateCoveringProblem.App.Shell;
-using BinateCoveringProblem.App.Shell.Matrix;
+﻿using BinateCoveringProblem.App.Eventing;
+using BinateCoveringProblem.App.Matrix;
+using BinateCoveringProblem.App.Matrix.Representation;
+using BinateCoveringProblem.App.Matrix.Settings;
+using BinateCoveringProblem.App.Shell;
 using Caliburn.Micro;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -24,9 +27,11 @@ namespace BinateCoveringProblem.App
         private static void Configure(IServiceCollection services)
         {
             services.AddSingleton<IWindowManager, WindowManager>();
+            services.AddSingleton<IEventStream, EventStream>();
             services.AddSingleton<ShellViewModel>();
             services.AddSingleton<IMatrixViewModel, MatrixViewModel>();
             services.AddSingleton<IMatrixRepresentation, MatrixRepresentation>();
+            services.AddSingleton<IMatrixSettingsViewModel, MatrixSettingsViewModel>();
         }
 
         protected override void Configure()
