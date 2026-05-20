@@ -427,3 +427,21 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Rider / IntelliJ
+.idea/
+*.sln.iml
+*.DotSettings.user
+*.user
+*.tmp
+*.cache
+*.orig
+
+# Build artifacts
+bin/
+obj/
+
+# Temporary files
+*.log
+*.temp
+*.tmp
